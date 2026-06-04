@@ -1,0 +1,27 @@
+# Nmap 7.99 scan initiated Sun May 31 04:39:27 2026 as: nmap -sV -sC -p- -O -oN nmap_full.txt 192.168.0.1
+Nmap scan report for ArcherAX1450 (192.168.0.1)
+Host is up (0.024s latency).
+Not shown: 65530 closed tcp ports (reset)
+PORT      STATE SERVICE  VERSION
+53/tcp    open  domain   dnsmasq 2.83
+| dns-nsid: 
+|_  bind.version: dnsmasq-2.83
+80/tcp    open  http     BusyBox http 1.19.4
+|_http-title: Site doesn't have a title (text/html).
+443/tcp   open  ssl/http BusyBox http 1.19.4
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=tplinkwifi.net/countryName=CN
+| Not valid before: 2010-01-01T00:00:00
+|_Not valid after:  2030-12-31T00:00:00
+1900/tcp  open  upnp     MiniUPnP 1.8 (TP-LINK router; UPnP 1.1)
+20001/tcp open  ssh      Dropbear sshd 2019.78 (protocol 2.0)
+MAC Address: A8:6E:84:F3:26:B8 (TP-Link Systems)
+Device type: general purpose
+Running: Linux 3.X
+OS CPE: cpe:/o:linux:linux_kernel:3.18
+OS details: Linux 3.18 (OpenWrt)
+Network Distance: 1 hop
+Service Info: OS: Linux; Device: broadband router; CPE: cpe:/o:linux:linux_kernel
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun May 31 04:40:50 2026 -- 1 IP address (1 host up) scanned in 83.00 seconds

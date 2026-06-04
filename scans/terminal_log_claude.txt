@@ -1,0 +1,21 @@
+actix-rt|system:0|arbiter:2 proxy|connect: Client connection (4e09d739-1505-4461-b4fd-399e6c049d04)
+2026-06-02T05:49:02.747432Z  INFO actix-rt|system:0|arbiter:2 proxy|connect: Client connected for http://192.168.0.1 (4e09d739-1505-4461-b4fd-399e6c049d04)
+2026-06-02T05:49:02.747469Z  INFO actix-rt|system:0|arbiter:2 proxy|http1|logger: POST http://192.168.0.1/cgi-bin/luci/;stok=4f36d026fb390faa3068619c6765eadd/admin/status?form=internet (4e09d739-1505-4461-b4fd-399e6c049d04)
+2026-06-02T05:49:03.091556Z  INFO actix-rt|system:0|arbiter:2 proxy|http1|logger: POST http://192.168.0.1/cgi-bin/luci/;stok=4f36d026fb390faa3068619c6765eadd/admin/status?form=internet -> 200 311 (4e09d739-1505-4461-b4fd-399e6c049d04)
+2026-06-02T05:49:03.252886Z  INFO actix-rt|system:0|arbiter:3 proxy|connect: Client connection (69ab3a11-e065-4109-88c3-a37afb80d621)
+2026-06-02T05:49:03.253019Z  INFO actix-rt|system:0|arbiter:3 proxy|connect: Client connected for http://192.168.0.1 (69ab3a11-e065-4109-88c3-a37afb80d621)
+2026-06-02T05:49:03.253128Z  INFO actix-rt|system:0|arbiter:3 proxy|http1|logger: POST http://192.168.0.1/cgi-bin/luci/;stok=4f36d026fb390faa3068619c6765eadd/admin/smart_network?form=game_accelerator (69ab3a11-e065-4109-88c3-a37afb80d621)
+2026-06-02T05:49:03.261137Z  INFO actix-rt|system:0|arbiter:4 proxy|connect: Client connection (1d8fbd6c-7ab5-4a80-8ccf-482f9990be3f)
+2026-06-02T05:49:03.261226Z  INFO actix-rt|system:0|arbiter:4 proxy|connect: Client connected for http://192.168.0.1 (1d8fbd6c-7ab5-4a80-8ccf-482f9990be3f)
+2026-06-02T05:49:03.261280Z  INFO actix-rt|system:0|arbiter:4 proxy|http1|logger: POST http://192.168.0.1/cgi-bin/luci/;stok=4f36d026fb390faa3068619c6765eadd/admin/easymesh_network?form=mesh_sclient_list_all (1d8fbd6c-7ab5-4a80-8ccf-482f9990be3f)
+2026-06-02T05:49:03.509295Z  INFO actix-rt|system:0|arbiter:4 proxy|http1|logger: POST http://192.168.0.1/cgi-bin/luci/;stok=4f36d026fb390faa3068619c6765eadd/admin/easymesh_network?form=mesh_sclient_list_all -> 200 182 (1d8fbd6c-7ab5-4a80-8ccf-482f9990be3f)
+2026-06-02T05:49:03.812545Z  INFO actix-rt|system:0|arbiter:3 proxy|http1|logger: POST http://192.168.0.1/cgi-bin/luci/;stok=4f36d026fb390faa3068619c6765eadd/admin/smart_network?form=game_accelerator -> 200 759 (69ab3a11-e065-4109-88c3-a37afb80d621)
+2026-06-02T05:49:06.626664Z  INFO actix-rt|system:0|arbiter:5 api|graphql: [query] dataExport
+[2207055:0602/014907.297885:ERROR:components/dbus/xdg/request.cc:169] Request ended (non-user cancelled).
+2026-06-02T05:49:07.303838Z  INFO actix-rt|system:0|arbiter:2 api|controller: GET /export/data/1fb7f2d4-bd00-407d-8069-f4d20ddc6ecb?X-Caido-Algorithm=HMAC-SHA256&X-Caido-Date=20260602T054906Z&X-Caido-Expires=900&X-Caido-Signature=a0eca75cefe59cbb3b3a0840a1727a14a4dfa0c03bf49c4fcd1e37dd4e08237b HTTP/1.1 -> 200
+2026-06-02T05:49:07.749384Z  INFO actix-rt|system:0|arbiter:3 proxy|connect: Client connection (be39c687-b5be-40d3-a8f0-b136cf7c3d0a)
+2026-06-02T05:49:07.749517Z  INFO actix-rt|system:0|arbiter:3 proxy|connect: Client connected for http://192.168.0.1 (be39c687-b5be-40d3-a8f0-b136cf7c3d0a)
+2026-06-02T05:49:07.749600Z  INFO actix-rt|system:0|arbiter:3 proxy|http1|logger: POST http://192.168.0.1/cgi-bin/luci/;stok=4f36d026fb390faa3068619c6765eadd/admin/status?form=internet (be39c687-b5be-40d3-a8f0-b136cf7c3d0a)
+2026-06-02T05:49:08.110467Z  INFO actix-rt|system:0|arbiter:3 proxy|http1|logger: POST http://192.168.0.1/cgi-bin/luci/;stok=4f36d026fb390faa3068619c6765eadd/admin/status?form=internet -> 200 311 (be39c687-b5be-40d3-a8f0-b136cf7c3d0a)
+
+
