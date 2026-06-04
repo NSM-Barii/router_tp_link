@@ -173,19 +173,31 @@ class LuCI_Client():
         self.hash     = None
 
 
-    def _post(self, path, body_str, headers=None):
+    def _post(self, path, body_str, headers=None, debug=False):
         """Raw POST — returns response text"""
 
-        url      = f"http://{self.host}/cgi-bin/luci/{path}"
-        data     = body_str.encode('utf-8')
-        hdrs     = {'Content-Type': 'application/x-www-form-urlencoded', 'Connection': 'close'}
+        url  = f"http://{self.host}/cgi-bin/luci/{path}"
+        data = body_str.encode('utf-8')
+        hdrs = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Connection':   'close',
+            'Referer':      f'http://{self.host}/',
+            'Origin':       f'http://{self.host}',
+        }
 
         if headers: hdrs.update(headers)
 
+        if debug:
+            console.print(f"[dim]POST {url}")
+            console.print(f"[dim]BODY: {body_str[:120]}...")
+
         req  = urllib.request.Request(url, data=data, headers=hdrs)
         resp = urllib.request.urlopen(req, timeout=10)
+        raw  = resp.read().decode('utf-8')
 
-        return resp.read().decode('utf-8')
+        if debug: console.print(f"[dim]RESP: {raw[:200]}")
+
+        return raw
 
 
     def _gen_aes_key(self):
@@ -237,10 +249,14 @@ class LuCI_Client():
         """Step 2 — GET sequence number from /login?form=auth"""
 
         body   = "operation=read"
-        resp   = self._post(";stok=/login?form=auth", body)
+        resp   = self._post(";stok=/login?form=auth", body, debug=True)
         parsed = json.loads(resp)
 
-        self.seq = int(parsed['data']['seq'])
+        # SEQ MAY BE NESTED DIFFERENTLY DEPENDING ON FIRMWARE — LOG RAW
+        console.print(f"[dim]auth response: {parsed}")
+
+        data     = parsed.get('data', parsed)
+        self.seq = int(data.get('seq', data.get('Seq', 0)))
         console.print(f"[bold green][+] Sequence number: {self.seq}")
 
 
@@ -250,12 +266,16 @@ class LuCI_Client():
         self._gen_aes_key()
         self._compute_hash(username)
 
-        payload = {"method": "do", "login": {"password": self.password}}
+        # TP-LINK SENDS MD5(PASSWORD) IN PAYLOAD, NOT PLAINTEXT
+        pwd_md5 = hashlib.md5(self.password.encode()).hexdigest()
+        payload = {"method": "do", "login": {"password": pwd_md5}}
         sign, data = self._encrypt_payload(payload)
 
         body   = f"sign={urllib.parse.quote(sign)}&data={urllib.parse.quote(data)}"
-        resp   = self._post(";stok=/login?form=login", body)
+        resp   = self._post(";stok=/login?form=login", body, debug=True)
         parsed = json.loads(resp)
+
+        console.print(f"[dim]login response: {resp[:300]}")
 
         # DECRYPT RESPONSE
         resp_data = parsed.get('data', '')
