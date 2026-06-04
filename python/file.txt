@@ -1,0 +1,28 @@
+POST http://192.168.0.1/cgi-bin/luci/;stok=/login?form=login
+BODY: sign=74bf8b8f76bbb0a6842ae7b3509ad6572deb060cbc8accaee36a624356e72ccbee38ecf81b781b52a68d44ad8ec49c8847bc59a1e9af96f2c44...
+Traceback (most recent call last):
+  File "/home/bari/Documents/poc/router_tp_link/python/luci_inject.py", line 440, in <module>
+    if __name__ == "__main__": Inject_Tester.main()
+                               ~~~~~~~~~~~~~~~~~~^^
+  File "/home/bari/Documents/poc/router_tp_link/python/luci_inject.py", line 428, in main
+    ok = client.authenticate(username=args.username)
+  File "/home/bari/Documents/poc/router_tp_link/python/luci_inject.py", line 275, in authenticate
+    resp   = self._post(";stok=/login?form=login", body, debug=True)
+  File "/home/bari/Documents/poc/router_tp_link/python/luci_inject.py", line 195, in _post
+    resp = urllib.request.urlopen(req, timeout=10)
+  File "/usr/lib/python3.13/urllib/request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/urllib/request.py", line 495, in open
+    response = meth(req, response)
+  File "/usr/lib/python3.13/urllib/request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "/usr/lib/python3.13/urllib/request.py", line 533, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/usr/lib/python3.13/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/usr/lib/python3.13/urllib/request.py", line 613, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
