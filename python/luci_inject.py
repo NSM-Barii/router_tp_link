@@ -264,11 +264,15 @@ class LuCI_Client():
         """Step 3 — Authenticate and get stok"""
 
         self._gen_aes_key()
-        self._compute_hash(username)
 
-        # TP-LINK SENDS MD5(PASSWORD) IN PAYLOAD, NOT PLAINTEXT
-        pwd_md5 = hashlib.md5(self.password.encode()).hexdigest()
-        payload = {"method": "do", "login": {"password": pwd_md5}}
+        # TRY MD5(PASSWORD) FIRST — MOST COMMON IN TP-LINK FIRMWARE
+        pwd_md5      = hashlib.md5(self.password.encode()).hexdigest()
+
+        # HASH IN SIGN = MD5(USERNAME + PASSWORD) — TRY PLAINTEXT PASS FIRST
+        self.hash = hashlib.md5((username + self.password).encode()).hexdigest()
+
+        # OPERATION=LOGIN IS REQUIRED — writeFilter IN localLogin/models.js ADDS IT
+        payload = {"operation": "login", "password": pwd_md5}
         sign, data = self._encrypt_payload(payload)
 
         body   = f"sign={urllib.parse.quote(sign)}&data={urllib.parse.quote(data)}"
