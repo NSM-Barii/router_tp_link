@@ -1,0 +1,12 @@
+┌──(bari㉿laptop)-[~/Documents/poc/router_tp_link/python]
+└─$ upnpc -a 192.168.0.1 4444 4444 TCP                            
+upnpc: miniupnpc library test client, version 2.3.3.
+ (c) 2005-2025 Thomas Bernard.
+More information at https://miniupnp.tuxfamily.org/ or http://miniupnp.free.fr/
+
+List of UPNP devices found on the network :
+ desc: http://192.168.0.1:1900/cqcos/rootDesc.xml
+ st: urn:schemas-upnp-org:device:InternetGatewayDevice:1
+
+Found a (not connected?) IGD : http://192.168.0.1:1900/cqcos/ctl/IPConn
+No valid UPNP Internet Gateway Device found.
