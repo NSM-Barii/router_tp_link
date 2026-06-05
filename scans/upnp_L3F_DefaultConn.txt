@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"><s:Body><u:GetDefaultConnectionServiceResponse xmlns:u="urn:schemas-upnp-org:service:Layer3Forwarding:1"><NewDefaultConnectionService>uuid:9d0df6a6-a47e-4b78-8be8-550ab72eddd2:WANConnectionDevice:1,urn:upnp-org:serviceId:WANIPConn1</NewDefaultConnectionService></u:GetDefaultConnectionServiceResponse></s:Body></s:Envelope>
