@@ -201,6 +201,17 @@ class LuCI_Client():
         return raw
 
 
+    def _post_safe(self, path, body_str, headers=None, debug=False):
+        """Same as _post but reads body on error instead of crashing"""
+
+        try:
+            return self._post(path, body_str, headers, debug)
+        except urllib.error.HTTPError as e:
+            body = e.read().decode('utf-8', errors='replace')
+            console.print(f"[bold red][!] HTTP {e.code} — response body: {body[:500]}")
+            raise
+
+
     def _gen_aes_key(self):
         """Generate 16-digit random AES key and IV — mirrors AES.genKey() in tpEncrypt.js"""
 
@@ -284,7 +295,7 @@ class LuCI_Client():
         sign, data = self._encrypt_payload(payload)
 
         body   = f"sign={urllib.parse.quote(sign)}&data={urllib.parse.quote(data)}"
-        resp   = self._post(";stok=/login?form=login", body, debug=True)
+        resp   = self._post_safe(";stok=/login?form=login", body, debug=True)
         parsed = json.loads(resp)
 
         console.print(f"[dim]login response: {resp[:300]}")
