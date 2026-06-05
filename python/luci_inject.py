@@ -177,13 +177,13 @@ class LuCI_Client():
     def _post(self, path, body_str, headers=None, debug=False):
         """Raw POST — returns response text"""
 
-        url  = f"http://{self.host}/cgi-bin/luci/{path}"
+        url  = f"http://tplinkwifi.net/cgi-bin/luci/{path}"
         data = body_str.encode('utf-8')
         hdrs = {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Connection':   'close',
-            'Referer':      f'http://{self.host}/',
-            'Origin':       f'http://{self.host}',
+            'Referer':      'http://tplinkwifi.net/',
+            'Origin':       'http://tplinkwifi.net',
         }
 
         if headers: hdrs.update(headers)
