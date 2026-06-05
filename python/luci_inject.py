@@ -219,7 +219,10 @@ class LuCI_Client():
         data_len    = len(data_b64)
         sign_string = f"k={self.aes_key}&i={self.aes_iv}&h={self.hash}&s={self.seq + data_len}"
 
-        return RSA_Encrypt.encrypt_string(sign_string, self.rsa_n, self.rsa_e)
+        console.print(f"[dim]SIGN STRING ({len(sign_string)} chars): {sign_string}")
+        result = RSA_Encrypt.encrypt_string(sign_string, self.rsa_n, self.rsa_e)
+        console.print(f"[dim]SIGN HEX ({len(result)} chars): {result[:64]}...")
+        return result
 
 
     def _encrypt_payload(self, payload_dict):
