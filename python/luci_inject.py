@@ -168,6 +168,7 @@ class LuCI_Client():
         self.seq      = None
         self.rsa_n    = None
         self.rsa_e    = None
+        self.username = 'admin'
         self.aes_key  = None
         self.aes_iv   = None
         self.hash     = None
@@ -242,10 +243,12 @@ class LuCI_Client():
         resp   = self._post(";stok=/login?form=keys", body)
         parsed = json.loads(resp)
 
-        self.rsa_n = parsed['data']['password'][0]
-        self.rsa_e = parsed['data']['password'][1]
+        self.rsa_n    = parsed['data']['password'][0]
+        self.rsa_e    = parsed['data']['password'][1]
+        self.username = parsed['data'].get('username', 'admin')
 
         console.print(f"[bold green][+] RSA key fetched — n={self.rsa_n[:32]}... e={self.rsa_e}")
+        console.print(f"[bold green][+] Username from router: '{self.username}'")
 
 
     def get_seq(self):
@@ -268,11 +271,13 @@ class LuCI_Client():
 
         self._gen_aes_key()
 
-        # TRY MD5(PASSWORD) FIRST — MOST COMMON IN TP-LINK FIRMWARE
+        # USERNAME COMES FROM /login?form=keys RESPONSE — WAS "" (EMPTY) ON THIS DEVICE
+        username     = self.username
         pwd_md5      = hashlib.md5(self.password.encode()).hexdigest()
+        self.hash    = hashlib.md5((username + self.password).encode()).hexdigest()
 
-        # HASH IN SIGN = MD5(USERNAME + PASSWORD) — TRY PLAINTEXT PASS FIRST
-        self.hash = hashlib.md5((username + self.password).encode()).hexdigest()
+        console.print(f"[dim]Using username: '{username}'")
+        console.print(f"[dim]Hash (MD5 of username+pass): {self.hash}")
 
         # OPERATION=LOGIN IS REQUIRED — writeFilter IN localLogin/models.js ADDS IT
         payload = {"operation": "login", "password": pwd_md5}
@@ -432,7 +437,7 @@ class Inject_Tester():
         client.get_seq()
 
         console.print("\n[bold cyan]Step 3 — Authenticating...")
-        ok = client.authenticate(username=args.username)
+        ok = client.authenticate()
 
         if not ok:
             console.print("[bold red]Authentication failed. Exiting.")
